@@ -26,7 +26,22 @@ def tokenize(text: str) -> Sequence[str] | None:
         Sequence[str] | None: Sequence of lower-cased tokens without punctuation.
         Returns None if input text is not a string.
     """
+    processed_tokens = []
+    tokens = text.split()
+    for word in tokens:
+        word = word.lower()
+        if word.isalpha():
+            processed_tokens.append(word)
+        else:
+            alpha_symbols = []
+            for symbol in word:
+                if symbol.isalpha():
+                    alpha_symbols.append(symbol)
+            joined_symbols = ''.join(alpha_symbols)
+            processed_tokens.append(joined_symbols)
+    return processed_tokens
 
+processed_text = []
 
 def remove_stop_words(tokens: Sequence[str], stop_words: Sequence[str]) -> Sequence[str] | None:
     """
@@ -114,7 +129,6 @@ def compare_profiles_by_top_n(
         float | None: The distance between profiles.
         Returns None in case of incorrect input types.
     """
-
 
 def detect_language_by_top_n(
     unknown_profile: ProfileType, profile_1: ProfileType, profile_2: ProfileType, top_n: int
